@@ -1,0 +1,98 @@
+CREATE DATABASE spBANK;
+
+USE spBANK;
+
+CREATE TABLE Authorization (
+    -> id INT(10) PRIMARY KEY AUTO_INCREMENT,
+    -> login VARCHAR(35) NOT NULL,
+    -> password VARCHAR(535) NOT NULL
+    -> );
+INSERT INTO Authorization (login,password) VALUES ('Vika','123vika'),('Dima','qwDIMAqw'),('Anton','102938'),('Yana','nordic'),('Egor','qazwsx');
+
++----+-------+----------+
+| id | login | password |
++----+-------+----------+
+|  1 | Vika  | 123vika  |
+|  2 | Dima  | qwDIMAqw |
+|  3 | Anton | 102938   |
+|  4 | Yana  | nordic   |
+|  5 | Egor  | qazwsx   |
++----+-------+----------+
+
+
+CREATE TABLE Users (
+    -> id INT (10) PRIMARY KEY AUTO_INCREMENT,
+    -> Firstname VARCHAR(35),
+    -> Lastname VARCHAR(35),
+    -> Auth_id INT(10),
+    -> FOREIGN KEY Users (Auth_id) REFERENCES Authorization (id)
+    -> );
+INSERT INTO Users (firstname, lastname, Auth_id) VALUES ('Viktoriya','Ivanova',1),('Dmitriy','Fedotov',2),('Anton','Govorov',3),('Yana','Yovovich',4),('Egor','Makovetskiy',5);
+
++----+-----------+-------------+---------+
+| id | Firstname | Lastname    | Auth_id |
++----+-----------+-------------+---------+
+|  1 | Viktoriya | Ivanova     |       1 |
+|  2 | Dmitriy   | Fedotov     |       2 |
+|  3 | Anton     | Govorov     |       3 |
+|  4 | Yana      | Yovovich    |       4 |
+|  5 | Egor      | Makovetskiy |       5 |
++----+-----------+-------------+---------+
+
+
+ CREATE TABLE Balance (
+    -> User_id INT (10),
+    -> Balance FLOAT (100,2),
+    -> FOREIGN KEY Balance (User_id) REFERENCES Users (id)
+    -> );
+INSERT INTO Balance (User_id, balance) VALUES (1, 155623.05),(2, 241005.01),(3, 97102.50),(4, 555419.8),(5 ,22814);
+
++---------+-----------+
+| User_id | Balance   |
++---------+-----------+
+|       1 | 155623.05 |
+|       2 | 241005.02 |
+|       3 |  97102.50 |
+|       4 | 555419.81 |
+|       5 |  22814.00 |
++---------+-----------+
+
+
+CREATE TABLE Message ( 
+User_id INT (10),
+Message TEXT(5000),
+FOREIGN KEY Message (User_id) REFERENCES Users (id)
+);
+ INSERT INTO Message (User_id, message) VALUES (1, 'funds have been credited to your account'), (2, 'You have been approved for a loan'), (2, 'Loan funds have been credited to your account'), (3, 'You were denied a loan'), (4, 'Keep it up'), (5, 'You are on your way to success');
+
++---------+-----------------------------------------------+
+| User_id | Message                                       |
++---------+-----------------------------------------------+
+|       1 | funds have been credited to your account      |
+|       2 | You have been approved for a loan             |
+|       2 | Loan funds have been credited to your account |
+|       3 | You were denied a loan                        |
+|       4 | Keep it up                                    |
+|       5 | You are on your way to success                |
++---------+-----------------------------------------------+
+
+Проверка связей таблиц:
+
+SELECT Authorization.id,login, Firstname, Lastname, Balance, Message 
+FROM Authorization INNER JOIN Users 
+ON Authorization.id=Auth_id 
+INNER JOIN Balance 
+ON Auth_id=User_id 
+INNER JOIN Message 
+ON Auth_id=Message.User_id;
+
++----+-------+-----------+-------------+-----------+-----------------------------------------------+
+| id | login | Firstname | Lastname    | Balance   | Message                                       |
++----+-------+-----------+-------------+-----------+-----------------------------------------------+
+|  1 | Vika  | Viktoriya | Ivanova     | 155623.05 | funds have been credited to your account      |
+|  2 | Dima  | Dmitriy   | Fedotov     | 241005.02 | You have been approved for a loan             |
+|  2 | Dima  | Dmitriy   | Fedotov     | 241005.02 | Loan funds have been credited to your account |
+|  3 | Anton | Anton     | Govorov     |  97102.50 | You were denied a loan                        |
+|  4 | Yana  | Yana      | Yovovich    | 555419.81 | Keep it up                                    |
+|  5 | Egor  | Egor      | Makovetskiy |  22814.00 | You are on your way to success                |
++----+-------+-----------+-------------+-----------+-----------------------------------------------+

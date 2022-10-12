@@ -1,0 +1,185 @@
+{
+"info": {
+"_postman_id": "446234b2-e6aa-4a3f-a41d-f5e79803543a",
+"name": "Swagger Petstore",
+"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+"_exporter_id": "21724680"
+},
+"item": [
+{
+"name": "Create user",
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test("Status code is 200", function () {\r",
+"    pm.response.to.have.status(200);\r",
+"});\r",
+"pm.test("Response time is less than 1000ms", function () {\r",
+"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+"});\r",
+"pm.test("Content-Type is present", function () {\r",
+"    pm.response.to.have.header("Content-Type");\r",
+"});\r",
+"pm.test("Приходит код", function () {\r",
+"    pm.expect(pm.response.text()).to.include("code");\r",
+"});"
+],
+"type": "text/javascript"
+}
+}
+],
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n  "id": 33,\r\n  "username": "{{user}}",\r\n  "firstName": "Egor",\r\n  "lastName": "Mak",\r\n  "email": "Mak@gmail.com",\r\n  "password": "Makqwerty123",\r\n  "phone": "89997773322",\r\n  "userStatus": 77\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": {
+"raw": "{{PETURL}}user",
+"host": [
+"{{PETURL}}user"
+]
+}
+},
+"response": []
+},
+{
+"name": "Get user by username",
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test("Status code is 200", function () {\r",
+"    pm.response.to.have.status(200);\r",
+"});\r",
+"pm.test("Response time is less than 500ms", function () {\r",
+"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+"});\r",
+"pm.test("Приходит ID", function () {\r",
+"    pm.expect(pm.response.text()).to.include("id");\r",
+"});\r",
+"pm.test("Приходит username", function () {\r",
+"    pm.expect(pm.response.text()).to.include("username");\r",
+"});"
+],
+"type": "text/javascript"
+}
+}
+],
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "{{PETURL}}user/{{user}}",
+"host": [
+"{{PETURL}}user"
+],
+"path": [
+"{{user}}"
+]
+}
+},
+"response": []
+},
+{
+"name": "Updated user",
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test("Status code is 200", function () {\r",
+"    pm.response.to.have.status(200);\r",
+"});\r",
+"pm.test("Response time is less than 500ms", function () {\r",
+"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+"});pm.test("Content-Type is present", function () {\r",
+"    pm.response.to.have.header("Content-Type");\r",
+"});\r",
+"pm.test("Приходит code", function () {\r",
+"    pm.expect(pm.response.text()).to.include("code");\r",
+"});"
+],
+"type": "text/javascript"
+}
+}
+],
+"request": {
+"method": "PUT",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n  "id": 33,\r\n  "username": "{{user}}",\r\n  "firstName": "Egor",\r\n  "lastName": "Makov",\r\n  "email": "Makov@mail.ru",\r\n  "password": "Makov1122",\r\n  "phone": "89995556677",\r\n  "userStatus": 77\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": {
+"raw": "{{PETURL}}user/{{user}}",
+"host": [
+"{{PETURL}}user"
+],
+"path": [
+"{{user}}"
+]
+}
+},
+"response": []
+},
+{
+"name": "Delete user",
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test("Status code is 200", function () {\r",
+"    pm.response.to.have.status(200);\r",
+"});\r",
+"pm.test("Response time is less than 500ms", function () {\r",
+"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+"});\r",
+"pm.test("Приходит code", function () {\r",
+"    pm.expect(pm.response.text()).to.include("code");\r",
+"});\r",
+"pm.test("Приходит message", function () {\r",
+"    pm.expect(pm.response.text()).to.include("message");\r",
+"});"
+],
+"type": "text/javascript"
+}
+}
+],
+"request": {
+"method": "DELETE",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": ""
+},
+"url": {
+"raw": "{{PETURL}}user/{{user}}",
+"host": [
+"{{PETURL}}user"
+],
+"path": [
+"{{user}}"
+]
+}
+},
+"response": []
+}
+]
+}
+

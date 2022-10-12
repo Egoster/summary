@@ -1,0 +1,55 @@
+#!/bin/bash
+#скрипт LVL 1
+echo "мы находимся в дерриктории:"
+pwd
+echo "вошли как пользователь"
+Whoami
+
+#!/bin/bash
+# Справочник по командам
+# mkdir,pwd,ls,rm,cat,touch
+echo "Введи название команды по которой нужна справка:"
+read command
+if [[ $command = mkdir ]]
+then
+        mkdir --help
+fi
+if [[ $command = rm ]]
+then
+        rm --help
+fi
+if [[ $command = cat ]]
+then
+        cat --help
+fi
+if [[ $command = touch ]]
+then
+        touch --help
+fi
+if [[ $command = pwd ]]
+then
+        pwd --help
+fi
+if [[ $command = ls ]]
+then
+        ls --help
+fi
+if [[ $command != mkdir ]]
+then
+ if [[ $command != rm ]]
+then
+  if [[ $command != pwd ]]
+then
+   if [[ $command != ls ]]
+then
+    if [[ $command != cat ]]
+then
+     if [[ $command != touch ]]
+then
+echo "Команда не найдена"
+     fi
+    fi
+   fi
+  fi
+ fi
+fi
